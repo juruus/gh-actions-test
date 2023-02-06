@@ -9,7 +9,7 @@ jobs:
   build-tests:
     strategy:
       matrix: 
-        command: [lint, "test:ci", e2e] #needs quotes cause color in name
+        command: [lint, "test:ci", e2e] #needs quotes cause colon in name
     runs-on: ubuntu-latest
 
     steps:
@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
 
       - name: Setup NodeJS 16
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: 'yarn'
