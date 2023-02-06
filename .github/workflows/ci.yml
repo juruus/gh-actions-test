@@ -10,10 +10,14 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  test-reusable:
+    uses: juruus/gh-actions-test/.github/workflows/_reuseme.yml@split-jobs
+
   build-tests:
+    needs: [test-reusable]
     strategy:
       matrix: 
-        command: [lint, "test:ci", e2e] # needs quotes cause colon in name
+        command: [lint] # [lint, "test:ci", e2e] # needs quotes cause colon in name
     runs-on: ubuntu-latest
 
     steps:
@@ -43,7 +47,4 @@ jobs:
 
       - name: ${{ matrix.command }} #dynamic name from matrix
         run: yarn ${{ matrix.command }}
-
-  test-reusable:
-    uses: juruus/gh-actions-test/.github/workflows/_reuseme.yml@split-jobs
 
