@@ -6,14 +6,14 @@ on:
       - main
 
 concurrency:
-  group: ci-tests-${{ github.ref }}-1
+  group: ci-tests-${{ github.ref }}-1 # can be referenced in other workflow files
   cancel-in-progress: true
 
 jobs:
   build-tests:
     strategy:
       matrix: 
-        command: [lint, "test:ci", e2e] #needs quotes cause colon in name
+        command: [lint, "test:ci", e2e] # needs quotes cause colon in name
     runs-on: ubuntu-latest
 
     steps:
@@ -35,7 +35,7 @@ jobs:
           path: |
             **/node_modules
             /home/runner/.cache/Cypress
-          key: our-cache-yarn-${{ hashFiles('**/yarn.lock.json')}}
+          key: our-cache-yarn-${{ hashFiles('**/yarn.lock') }} # can be referenced in other workflow files
 
       - name: Install dependencies
         if: steps.yarn-cache.outputs.cache-hit != 'true'
@@ -44,6 +44,6 @@ jobs:
       - name: ${{ matrix.command }} #dynamic name from matrix
         run: yarn ${{ matrix.command }}
 
-
-
+  test-resusable:
+    uses: juruus/gh-actions-test/.github/workflows/_reuseme.yml@main
 
