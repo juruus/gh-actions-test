@@ -39,6 +39,3 @@ jobs:
 
       - name: ${{ matrix.command }} #dynamic name from matrix
         run: yarn ${{ matrix.command }}
-
-
-
