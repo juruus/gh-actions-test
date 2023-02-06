@@ -45,6 +45,5 @@ jobs:
         run: yarn ${{ matrix.command }}
 
   test-reusable:
-    needs: [build-tests]
     uses: juruus/gh-actions-test/.github/workflows/_reuseme.yml@split-jobs
 
